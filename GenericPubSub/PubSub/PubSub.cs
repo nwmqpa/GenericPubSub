@@ -34,6 +34,14 @@ namespace GenericPubSub.PubSub
                     action.Invoke(publishedEvent);
                 }
             }
+
+            if (namedListeners.ContainsKey(typeof(T).Name))
+            {
+                foreach (var action in namedListeners[typeof(T).Name])
+                {
+                    action.Invoke(publishedEvent.ToDictionnary());
+                }
+            }
             
         }
     }
