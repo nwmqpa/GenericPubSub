@@ -7,7 +7,7 @@ namespace GenericPubSub.PubSub
     {
         public static Dictionary<string, dynamic> ToDictionnary<T>(this T obj) where T : class
         {
-            var dict = new Dictionary<string, dynamic>();
+            var dict = new Dictionary<string, object>();
             var fields = typeof(T).GetFields();
             foreach (var fieldInfo in fields)
             {
@@ -24,7 +24,7 @@ namespace GenericPubSub.PubSub
             return dict;
         }
 
-        public static T ToObject<T>(this Dictionary<string, dynamic> dict) where T : class, new()
+        public static T ToObject<T>(this Dictionary<string, object> dict) where T : class, new()
         {
             var model = new T();
             var fields = typeof(T).GetFields();
