@@ -11,11 +11,11 @@ namespace GenericPubSub.PubSub
         private static Dictionary<Type, List<Action<object>>> listeners = new Dictionary<Type, List<Action<object>>>();
         private static Dictionary<string, List<Action<Dictionary<string, object>>>> namedListeners = new Dictionary<string, List<Action<Dictionary<string, object>>>>();
 
-        public static void RegisterListener<T>(Action<object> listener) where T : class
+        public static void RegisterListener<T>(Action<T> listener) where T : class
         {
             if (listeners.ContainsKey(typeof(T)) == false)
                 listeners.Add(typeof(T), new List<Action<object>>());
-            listeners[typeof(T)].Add(listener);
+            listeners[typeof(T)].Add((object obj) => listener(obj as T));
         }
         
         public static void RegisterListener(Action<Dictionary<string, object>> listener, string eventTypeName)
